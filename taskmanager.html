@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>TimeMate - מנהל משימות</title>
+  <link rel="stylesheet" href="taskmanager.css" />
+</head>
+
+<body>
+  <!-- Modal (must be inside body) -->
+  <div id="editExamsModal" class="modal-overlay">
+    <div class="modal">
+      <h2>ניהול מבחנים</h2>
+      <p class="modal-desc">בחר מבחן קיים לעריכה/מחיקה, או הוסף מבחן חדש.</p>
+
+      <label for="examSelect">מבחן קיים</label>
+      <select id="examSelect"></select>
+
+      <label for="subjectSelect">מקצוע</label>
+      <select id="subjectSelect">
+        <option value="פרקי מכונות">פרקי מכונות</option>
+        <option value="דינמיקה">דינמיקה</option>
+        <option value="תרמודינמיקה">תרמודינמיקה</option>
+        <option value="אלקטרוניקה ספרותית">אלקטרוניקה ספרותית</option>
+        <option value="הינע תעשייתי">הינע תעשייתי</option>
+        <option value="מכשור לבקרה">מכשור לבקרה</option>
+        <option value="בקרת מערכות">בקרת מערכות</option>
+      </select>
+
+      <label for="examDateInput">תאריך</label>
+      <input id="examDateInput" type="date" />
+
+      <div class="modal-actions">
+        <button id="saveExamsBtn" type="button">שמירה</button>
+        <button id="removeExamBtn" type="button">מחיקת מבחן</button>
+        <button id="cancelExamsBtn" type="button">ביטול</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Home screen -->
+  <section id="homeScreen" class="screen">
+    <div class="home-container">
+      <h1>מכללה טכנולוגית כנרת</h1>
+      <img
+        src="https://www.govo.co.il/qm/images/54/thumbs/20160727133302_%D7%9E%D7%9B%D7%9C%D7%9C%D7%94%20%D7%90%D7%A7%D7%93%D7%9E%D7%99%D7%AA%20%D7%9B%D7%A0%D7%A8%D7%AA.jpg"
+        alt="לוגו מכללה כנרת"
+        class="home-logo"
+      />
+      <p class="home-info">
+        ברוכים הבאים ל-TimeMate! כאן תוכלו לנהל את כל המשימות שלכם בקלות, לראות את
+        ולראות את לוח המבחנים.
+      </p>
+
+      <!-- Optional: you can keep this list, but the JS I gave renders exams only in the sidebar -->
+      <h2>לוח מבחנים</h2>
+      <ul id="examList" class="exam-list"></ul>
+
+      <button id="enterBtn" class="enter-btn" type="button">המשך למסך המשימות</button>
+    </div>
+  </section>
+
+  <!-- Tasks screen -->
+  <section id="tasksScreen" class="screen">
+    <header class="header-flex">
+      <button id="backBtn" class="back-btn" type="button">חזרה לבית</button>
+      <h1>TimeMate</h1>
+      <button id="themeToggle" class="theme-btn" type="button">מצב כהה</button>
+    </header>
+
+    <div class="main-container">
+      <aside class="tasks-sidebar">
+        <section class="card">
+          <h2>משימות</h2>
+          <form id="taskForm">
+            <input id="taskName" type="text" placeholder="שם משימה" required />
+            <input id="taskDate" type="date" required />
+            <button type="submit">הוסף</button>
+          </form>
+        </section>
+
+        <section class="card">
+          <h2>30 יום</h2>
+          <div id="calendar" class="calendar-grid"></div>
+        </section>
+
+        <section class="card">
+          <h2 id="tasksTitle">משימות</h2>
+          <ul id="list"></ul>
+        </section>
+      </aside>
+
+      <aside class="exams-sidebar">
+        <section class="card">
+          <div class="sidebar-header">
+            <h2>מבחנים קרובים</h2>
+            <button id="editExamsBtn" class="edit-btn" type="button">ערוך</button>
+          </div>
+          <ul id="examListSidebar"></ul>
+        </section>
+      </aside>
+    </div>
+
+    <footer>
+      <p>רועי סול וזוהר — עתודה טכנולוגית כנרת</p>
+    </footer>
+  </section>
+
+  <script src="taskmanager.js"></script>
+</body>
+</html>

@@ -1,0 +1,542 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+body {
+  background: #f5f7fa;
+  color: #222;
+}
+
+/* Home screen */
+#homeScreen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+  background: linear-gradient(135deg, #6c7ae0, #5563c1);
+  color: #fff;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  transition: transform 0.7s ease, opacity 0.7s ease;
+}
+
+.home-logo {
+  width: 250px;
+  margin: 20px 0;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.home-info {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.exam-list {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.exam-list li {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px 15px;
+  border-radius: 10px;
+  margin: 8px 0;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.exam-list li:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.enter-btn {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  background: #fff;
+  color: #5563c1;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.enter-btn:hover {
+  background: #e0e4ff;
+  transform: scale(1.05);
+}
+
+/* Dark theme */
+body.dark {
+  background: #111827;
+  color: #e5e7eb;
+}
+
+header,
+footer {
+  background: #2b3a55;
+  color: #fff;
+  text-align: center;
+  padding: 15px;
+}
+
+.main-container {
+  display: flex;
+  gap: 20px;
+  max-width: 2000px;
+  margin: 20px auto;
+  padding: 0 15px;
+  height: calc(100vh - 140px);
+  overflow: hidden;
+}
+
+.tasks-sidebar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+}
+
+.exams-sidebar {
+  width: 300px;
+  flex-shrink: 0;
+  height: fit-content;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.exams-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.exams-sidebar li {
+  background: #e8f0fe;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+body.dark .exams-sidebar li {
+  background: #374151;
+  color: #fff;
+}
+
+/* Cards/forms */
+.card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+body.dark .card {
+  background: #1f2933;
+}
+
+h1,
+h2,
+p {
+  margin-bottom: 15px;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+input,
+button {
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+input {
+  flex: 1;
+  min-width: 140px;
+}
+
+button {
+  background: #2b3a55;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #1f2b40;
+}
+
+.theme-btn {
+  margin-top: 10px;
+  background: #6c7ae0;
+}
+
+.theme-btn:hover {
+  background: #5563c1;
+}
+
+/* Calendar */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-top: 15px;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+body.dark .calendar-grid {
+  background: #374151;
+}
+
+.calendar-day {
+  padding: 12px 8px;
+  border-radius: 8px;
+  background: #eef1f6;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+body.dark .calendar-day {
+  background: #111827;
+}
+
+.calendar-day:hover {
+  background: #dbe1ee;
+  transform: translateY(-1px);
+}
+
+body.dark .calendar-day:hover {
+  background: #1f2937;
+}
+
+.calendar-day.has-tasks {
+  border-color: #4caf50;
+  background: #e8f5e8;
+  font-weight: bold;
+}
+
+body.dark .calendar-day.has-tasks {
+  background: #166534;
+  color: white;
+}
+
+.calendar-day.selected {
+  background: #2b3a55 !important;
+  color: white;
+  box-shadow: 0 4px 12px rgba(43, 58, 85, 0.4);
+}
+
+/* Task list */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  background: #eef1f6;
+  margin-bottom: 12px;
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+body.dark li {
+  background: #111827;
+}
+
+li.done {
+  text-decoration: line-through;
+  opacity: 0.6;
+  background: #f0f0f0;
+}
+
+body.dark li.done {
+  background: #1f2937;
+}
+
+.task-text {
+  flex: 1;
+  margin-right: 15px;
+}
+
+.task-actions button {
+  margin-left: 8px;
+  padding: 8px 12px;
+  min-width: 45px;
+}
+
+/* Screen animation */
+.screen {
+  position: absolute;
+  width: 100%;
+  min-height: 100vh;
+  top: 0;
+  left: 0;
+  transition: transform 0.7s ease, opacity 0.7s ease;
+}
+
+#tasksScreen {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.show-tasks #homeScreen {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.show-tasks #tasksScreen {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Header layout */
+.header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2b3a55;
+  color: #fff;
+  padding: 15px;
+}
+
+.header-flex h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  text-align: center;
+  flex: 1;
+}
+
+.header-flex button {
+  font-weight: bold;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+}
+
+.header-flex .back-btn {
+  background: #ff6b6b;
+  color: white;
+}
+
+.header-flex .back-btn:hover {
+  background: #ff4b4b;
+}
+
+.header-flex .theme-btn {
+  background: #6c7ae0;
+  color: white;
+}
+
+.header-flex .theme-btn:hover {
+  background: #5563c1;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-overlay.show {
+  display: flex;
+}
+
+.modal {
+  background: #ffffff;
+  padding: 20px 24px;
+  border-radius: 14px;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+  text-align: right;
+  animation: modal-pop 0.25s ease-out;
+}
+
+body.dark .modal {
+  background: #1f2933;
+  color: #e5e7eb;
+}
+
+.modal h2 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 1.4rem;
+}
+
+.modal-desc {
+  margin: 0 0 12px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.modal textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #d0d7e2;
+  font-family: inherit;
+  resize: vertical;
+  font-size: 0.95rem;
+}
+
+body.dark .modal textarea {
+  background: #111827;
+  color: #e5e7eb;
+  border-color: #374151;
+}
+
+.modal label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+}
+
+.modal select,
+.modal input[type="date"] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid #d0d7e2;
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+body.dark .modal select,
+body.dark .modal input[type="date"] {
+  background: #111827;
+  color: #e5e7eb;
+  border-color: #374151;
+}
+
+.modal-actions {
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+.modal-actions button {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#saveExamsBtn {
+  background: #6c7ae0;
+  color: white;
+}
+
+#saveExamsBtn:hover {
+  background: #5563c1;
+}
+
+#cancelExamsBtn {
+  background: #ff6b6b;
+  color: white;
+}
+
+#cancelExamsBtn:hover {
+  background: #ff4b4b;
+}
+
+@keyframes modal-pop {
+  from {
+    transform: translateY(12px) scale(0.96);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .main-container {
+    flex-direction: column-reverse;
+    height: auto;
+    overflow: visible;
+  }
+
+  .exams-sidebar {
+    width: 200px;
+    max-width: 180px;
+    align-self: flex-start;
+  }
+
+  .exams-sidebar li {
+    padding: 6px 8px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+}
+
+@media (max-width: 768px) {
+  .calendar-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  form {
+    flex-direction: column;
+  }
+
+  li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .task-actions {
+    align-self: flex-end;
+  }
+}
