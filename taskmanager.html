@@ -1,112 +1,118 @@
-
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <title>TimeMate - מנהל משימות</title>
-  <link rel="stylesheet" href="taskmanager.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeMate - ניהול משימות ומבחנים</title>
+    <link rel="stylesheet" href="taskmanager.css">
 </head>
-
 <body>
-  <!-- Modal (must be inside body) -->
-  <div id="editExamsModal" class="modal-overlay">
-    <div class="modal">
-      <h2>ניהול מבחנים</h2>
-      <p class="modal-desc">בחר מבחן קיים לעריכה/מחיקה, או הוסף מבחן חדש.</p>
+    <!-- Home screen -->
+    <div id="homeScreen">
+        <div class="home-logo">🕐</div>
+        <div class="home-info">
+            <h1>ברוכים הבאים ל-TimeMate!</h1>
+            <p>כאן תוכלו לנהל את כל המשימות שלכם בקלות, לראות את לוח המבחנים.</p>
+        </div>
+        <ul id="examList" class="exam-list"></ul>
+        <button id="enterBtn" class="enter-btn">התחל ניהול משימות</button>
+    </div>
 
-      <label for="examSelect">מבחן קיים</label>
-      <select id="examSelect"></select>
+    <!-- Tasks screen -->
+    <div id="tasksScreen" class="screen">
+        <header class="header-flex">
+            <button id="backBtn" class="back-btn">🏠</button>
+            <h1 id="tasksTitle">כל המשימות</h1>
+            <button id="themeToggle" class="theme-btn">מצב כהה</button>
+        </header>
 
-      <label for="subjectSelect">מקצוע</label>
-      <select id="subjectSelect">
-        <option value="פרקי מכונות">פרקי מכונות</option>
-        <option value="דינמיקה">דינמיקה</option>
-        <option value="תרמודינמיקה">תרמודינמיקה</option>
-        <option value="אלקטרוניקה ספרותית">אלקטרוניקה ספרותית</option>
-        <option value="הינע תעשייתי">הינע תעשייתי</option>
-        <option value="מכשור לבקרה">מכשור לבקרה</option>
-        <option value="בקרת מערכות">בקרת מערכות</option>
-      </select>
+        <div class="main-container">
+            <!-- Exams sidebar -->
+            <div class="exams-sidebar card">
+                <div class="sidebar-header">
+                    <h3>מבחנים קרובים</h3>
+                    <button id="editExamsBtn">ערוך</button>
+                </div>
+                <ul id="examListSidebar"></ul>
+                <button id="pastExamsBtn">📊 מבחנים עברים</button>
+            </div>
 
-      <label for="examDateInput">תאריך</label>
-      <input id="examDateInput" type="date" />
+            <!-- Tasks sidebar -->
+            <div class="tasks-sidebar">
+                <!-- Calendar -->
+                <div class="card">
+                    <h2>לוח זמנים</h2>
+                    <div id="calendar" class="calendar-grid"></div>
+                </div>
 
-      <div class="modal-actions">
-        <button id="saveExamsBtn" type="button">שמירה</button>
-        <button id="removeExamBtn" type="button">מחיקת מבחן</button>
-        <button id="cancelExamsBtn" type="button">ביטול</button>
-      </div>
+                <!-- Task form -->
+                <form id="taskForm" class="card">
+                    <input id="taskName" placeholder="שם משימה" required>
+                    <input id="taskDate" type="date" required>
+                    <button type="submit">הוסף משימה</button>
+                </form>
+<div class="card">
+  <h2>יעד שלי</h2>
+  <form id="goalForm">
+    <input type="text" id="goalInput" placeholder="הזן את היעד שלך..." maxlength="100">
+    <button type="submit">הוסף יעד</button>
+  </form>
+  <div id="goalDisplay" style="display: none; margin-top: 15px;">
+    <div class="goal-box">
+      <p id="goalText"></p>
+      <button id="clearGoalBtn" type="button">נקה יעד</button>
     </div>
   </div>
+  <div id="celebrationContainer"></div>
+</div>
+                <!-- Progress bar -->
+                <div class="card progress-wrapper">
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill"></div>
+                    </div>
+                    <div id="progressText" class="progress-text">0%</div>
+                </div>
 
-  <!-- Home screen -->
-  <section id="homeScreen" class="screen">
-    <div class="home-container">
-      <h1>מכללה טכנולוגית כנרת</h1>
-      <img
-        src="https://www.govo.co.il/qm/images/54/thumbs/20160727133302_%D7%9E%D7%9B%D7%9C%D7%9C%D7%94%20%D7%90%D7%A7%D7%93%D7%9E%D7%99%D7%AA%20%D7%9B%D7%A0%D7%A8%D7%AA.jpg"
-        alt="לוגו מכללה כנרת"
-        class="home-logo"
-      />
-      <p class="home-info">
-        ברוכים הבאים ל-TimeMate! כאן תוכלו לנהל את כל המשימות שלכם בקלות, לראות את
-        ולראות את לוח המבחנים.
-      </p>
-
-      <!-- Optional: you can keep this list, but the JS I gave renders exams only in the sidebar -->
-      <h2>לוח מבחנים</h2>
-      <ul id="examList" class="exam-list"></ul>
-
-      <button id="enterBtn" class="enter-btn" type="button">המשך למסך המשימות</button>
-    </div>
-  </section>
-
-  <!-- Tasks screen -->
-  <section id="tasksScreen" class="screen">
-    <header class="header-flex">
-      <button id="backBtn" class="back-btn" type="button">חזרה לבית</button>
-      <h1>TimeMate</h1>
-      <button id="themeToggle" class="theme-btn" type="button">מצב כהה</button>
-    </header>
-
-    <div class="main-container">
-      <aside class="tasks-sidebar">
-        <section class="card">
-          <h2>משימות</h2>
-          <form id="taskForm">
-            <input id="taskName" type="text" placeholder="שם משימה" required />
-            <input id="taskDate" type="date" required />
-            <button type="submit">הוסף</button>
-          </form>
-        </section>
-
-        <section class="card">
-          <h2>30 יום</h2>
-          <div id="calendar" class="calendar-grid"></div>
-        </section>
-
-        <section class="card">
-          <h2 id="tasksTitle">משימות</h2>
-          <ul id="list"></ul>
-        </section>
-      </aside>
-
-      <aside class="exams-sidebar">
-        <section class="card">
-          <div class="sidebar-header">
-            <h2>מבחנים קרובים</h2>
-            <button id="editExamsBtn" class="edit-btn" type="button">ערוך</button>
-          </div>
-          <ul id="examListSidebar"></ul>
-        </section>
-      </aside>
+                <!-- Task list -->
+                <ul id="list" class="card"></ul>
+            </div>
+        </div>
     </div>
 
-    <footer>
-      <p>רועי סול וזוהר — עתודה טכנולוגית כנרת</p>
-    </footer>
-  </section>
+    <!-- Edit exams modal -->
+    <div id="editExamsModal" class="modal-overlay">
+        <div class="modal">
+            <h2>עריכת מבחנים</h2>
+            <p class="modal-desc">בחר מבחן קיים לעריכה/מחיקה, או הוסף מבחן חדש.</p>
+            <select id="examSelect"></select>
+            <label for="subjectSelect">מקצוע</label>
+            <select id="subjectSelect">
+                <option>פרקי מכונות</option>
+                <option>דינמיקה</option>
+                <option>תרמודינמיקה</option>
+            </select>
+            <label for="examDateInput">תאריך</label>
+            <input id="examDateInput" type="date">
+            <button id="saveExamsBtn">שמור</button>
+            <button id="removeExamBtn">מחק</button>
+            <div class="modal-actions">
+                <button id="cancelExamsBtn">ביטול</button>
+            </div>
+        </div>
+    </div>
 
-  <script src="taskmanager.js"></script>
+    <!-- Past exams modal -->
+    <div id="pastExamsModal" class="modal-overlay">
+        <div class="modal">
+            <h2>מבחנים עברים וציונים</h2>
+            <div id="pastExamsList"></div>
+            <div id="gradeStats" class="grade-stats"></div>
+            <div class="modal-actions">
+                <button id="closePastExamsBtn">סגור</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="taskmanager.js"></script>
 </body>
 </html>
